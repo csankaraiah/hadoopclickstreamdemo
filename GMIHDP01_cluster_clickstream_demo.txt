@@ -1,0 +1,24 @@
+## Connect to the cluster 
+
+
+Name	Public Address	Private Address	Hostgroup Name	Host Status
+i-1fb60dda	52.24.252.109	10.0.68.233	host_group_master_1	HEALTHY
+i-afb60d6a	54.149.113.58	10.0.254.214	cbgateway	HEALTHY
+i-bcb70c79	52.25.199.128	10.0.74.162	host_group_master_3	HEALTHY
+i-beb70c7b	54.148.61.194	10.0.153.37	host_group_client_1	HEALTHY
+i-dbb50e1e	54.148.254.99	10.0.43.150	host_group_master_2	HEALTHY
+i-deb50e1b	54.148.90.58	10.0.68.144	host_group_slave_1	HEALTHY
+
+For Ambari
+ssh -i chakra_st.pem ec2-user@ec2-54-149-113-58.us-west-2.compute.amazonaws.com
+
+For Client
+ssh -i chakra_st.pem ec2-user@54.148.61.194
+
+
+sudo su 
+
+docker ps 
+
+docker exec -it 500f833ce20f bash
+

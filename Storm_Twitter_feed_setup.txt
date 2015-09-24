@@ -1,0 +1,74 @@
+### Storm for real time streaming of twitter data
+
+
+Login to IntelliJ and open storm-twitter-workshop
+
+Actual code is located at 
+/Users/csankaraiah/Documents/hdpprac/storm/storm-twitter-workshop/
+
+
+The code for getting twitter feeds is available under storm-assignment
+
+Twitter source keys are available under package storm.starter under class
+TwitterFunTopology
+
+You can also mention the keywords that you want to track in twitterfileter query 
+
+ tweetFilterQuery.track(new String[]{"Carlson", "CWT" , "carlsonwagonlit", "carlson", "CarlsonWagonlit"});
+ 
+ 
+ Once you have made that change. Go to following path under terminal
+ 
+ /Users/csankaraiah/Documents/hdpprac/storm/storm-twitter-workshop/storm-assignment
+ 
+ and give create the package using following command
+ 
+ mvn package
+ 
+ The resulting jar file will be available under the target directory
+ 
+ /Users/csankaraiah/Documents/hdpprac/storm/storm-twitter-workshop/storm-assignment/target
+ 
+ storm-assignment-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+ storm-assignment-0.0.1-SNAPSHOT.jar
+ 
+ *************Storm demo 
+ 
+ Copy these files to the cluster 
+ 
+ cd /Users/csankaraiah/Documents/hdpprac/storm/storm-twitter-workshop/storm-assignment/target
+ 
+ scp storm-assignment-0.0.1-SNAPSHOT-jar-with-dependencies.jar root@172.16.149.151:
+ 
+ scp storm-assignment-0.0.1-SNAPSHOT.jar root@172.16.149.151:
+ 
+ 
+ ssh root@172.16.149.139
+ 
+ 
+ Go the sandbox where you have exported the jar and use following command to execute it
+ 
+ ## Login into the sandbox and run the storm job 
+
+/usr/hdp/2.2.0.0-2041/storm/bin/storm jar storm-assignment-0.0.1-SNAPSHOT-jar-with-dependencies.jar storm.starter.TwitterFunTopology TwitterSpout -c storm.starter.TwitterFunTopology TwitterSpout -c nimbus.host=sandbox.hortonworks.com
+
+/usr/hdp/2.2.4.2-2/storm/bin/storm jar storm-assignment-0.0.1-SNAPSHOT-jar-with-dependencies.jar storm.starter.TwitterFunTopology TwitterSpout -c storm.starter.TwitterFunTopology TwitterSpout -c nimbus.host=172.16.149.151
+
+/usr/hdp/2.3.0.0-2557/storm/bin/storm jar storm-assignment-0.0.1-SNAPSHOT-jar-with-dependencies.jar storm.starter.TwitterFunTopology TwitterSpout -c storm.starter.TwitterFunTopology TwitterSpout -c nimbus.host=172.16.149.151
+
+
+
+#### To over come the the error with system clock not in sync
+
+twitter4j.TwitterStreamImpl - 401:Authentication credentials (https://dev.twitter.com/pages/auth) were missing or incorrect. 
+Ensure that you have set valid consumer key/secret, access token/secret, and
+
+-- Here is what i did to resolve the issue, using ntp 
+
+yum install ntp
+
+ntpdate "north-america.pool.ntp.org"
+
+hwclock --systohc
+
+######
